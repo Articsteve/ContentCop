@@ -1,0 +1,9 @@
+<div class="container main-container">
+  <h1>Categorias</h1>
+  <div class="row">
+    <div *ngFor="let c of categorieList" class="col-md-3">
+      <br>
+      <button type="button" class="btn btn-block btn-info" [routerLink]= "['/description',c.id]">{{c.name}}</button>
+    </div>
+  </div>
+</div>
