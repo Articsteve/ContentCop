@@ -1,6 +1,5 @@
 <div class="row">
   <div class="col-md-12">
-    <app-pie-chart  [category]="categoryId"></app-pie-chart>
     <table class="table">
       <thead>
         <tr>
@@ -13,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let c of categories">
+        <tr *ngFor="let c of videoInfo">
           <th><img [src]="c.thumbnails.medium.url" alt=""></th>
           <th>{{ c.channelId }}</th>
           <td>{{ c.channelTitle }}</td>

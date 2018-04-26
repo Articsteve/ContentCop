@@ -6,15 +6,26 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ChartsModule } from 'ng2-charts';
+
 //Routes
 import { app_routing } from './app.routes';
 
 //services
 import { YoutubeService } from './services/youtube.service';
+import { MysqlService } from './services/mysql.service';
+import { ChartService } from './services/chart.service';
 
 //Pipes
 import { SafeDomPipe } from './pipes/safe-dom.pipe';
+
+//Components
 import { DescriptionComponent } from './components/description/description.component';
+import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
+import { CategorynamePipe } from './pipes/categoryname.pipe';
+import { KeywordComponent } from './components/keyword/keyword.component';
 
 @NgModule({
   declarations: [
@@ -22,15 +33,23 @@ import { DescriptionComponent } from './components/description/description.compo
     HomeComponent,
     NavbarComponent,
     SafeDomPipe,
-    DescriptionComponent
+    DescriptionComponent,
+    PieChartComponent,
+    CategorynamePipe,
+    KeywordComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    app_routing
+    app_routing,
+    FormsModule,
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [
-    YoutubeService
+    YoutubeService,
+    MysqlService,
+    ChartService
   ],
   bootstrap: [AppComponent]
 })

@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
       this._ys.getVideosCategories( 10 ).subscribe( categoryVideos => {
         //console.log( artist );
         this.categories = categoryVideos;
-        console.log(categoryVideos)
       });
 
   }

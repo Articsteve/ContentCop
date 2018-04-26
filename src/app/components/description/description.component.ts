@@ -10,18 +10,18 @@ import { YoutubeService } from '../../services/youtube.service';
 export class DescriptionComponent implements OnInit {
 
   categories:any[] = [];
+  video:any;
+  categoryId:number;
   constructor( private activatedRoute: ActivatedRoute, private _ys:YoutubeService) {
     this.activatedRoute.params
     .map( data => data.id)
     .subscribe( id => {
-      console.log(id);
+      this.categoryId = id;
       this._ys.getVideosCategories( id ).subscribe( categoryVideos => {
         this.categories = categoryVideos;
-        console.log(categoryVideos)
       });
     });
   }
   ngOnInit() {
   }
-
 }

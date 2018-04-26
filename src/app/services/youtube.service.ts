@@ -28,6 +28,26 @@ export class YoutubeService {
       return videos
     })
   }
+
+  getVideos( id ){
+    let url = `${this.urlYoutube}videos`;
+    let params = new URLSearchParams();
+
+    params.set ('part', 'snippet');
+    params.set ('chart', 'mostPopular');
+    params.set ('key', this.apiKey);
+    params.set ('videoCategoryId', id);
+    return this.http.get( url , {search:params}).map( res =>{
+      console.log( res.json());
+
+      let videos:any[] = [];
+      for (let video of res.json().items){
+        let videoSnippet = video.snippet
+        videos.push (videoSnippet);
+      }
+      return videos
+    })
+  }
   getVideosCategories( id ){
     let url = `${this.urlYoutube}search`;
     let params = new URLSearchParams();
@@ -46,4 +66,24 @@ export class YoutubeService {
       return videos
     })
   }
+  searchVideo( term:string ){
+    
+    let url = `${this.urlYoutube}search`;
+    let params = new URLSearchParams();
+    params.set ('part', 'snippet');
+    params.set ('type', 'video');
+    params.set ('q', term);
+    params.set ('key', this.apiKey);
+    return this.http.get( url , {search:params}).map( res =>{
+      console.log( res.json());
+
+      let videos:any[] = [];
+      for (let video of res.json().items){
+        let videoSnippet = video.snippet
+        videos.push (videoSnippet);
+      }
+      return videos
+    })
+  }
+
 }
