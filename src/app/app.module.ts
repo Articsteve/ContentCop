@@ -26,6 +26,8 @@ import { DescriptionComponent } from './components/description/description.compo
 import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
 import { CategorynamePipe } from './pipes/categoryname.pipe';
 import { KeywordComponent } from './components/keyword/keyword.component';
+import { SearchComponent } from './components/search/search.component';
+import { ReqformComponent } from './components/reqform/reqform.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { KeywordComponent } from './components/keyword/keyword.component';
     PieChartComponent,
     CategorynamePipe,
     KeywordComponent,
+    SearchComponent,
+    ReqformComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ export class DescriptionComponent implements OnInit {
   categories:any[] = [];
   video:any;
   categoryId:number;
+
   constructor( private activatedRoute: ActivatedRoute, private _ys:YoutubeService) {
     this.activatedRoute.params
     .map( data => data.id)

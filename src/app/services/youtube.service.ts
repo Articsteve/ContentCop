@@ -5,6 +5,7 @@ import 'rxjs/Rx';
 @Injectable()
 export class YoutubeService {
 
+  videosArr:any[] = [];
   private urlYoutube:string = "https://www.googleapis.com/youtube/v3/";
   private apiKey = "AIzaSyAopPDDL2zU0gAFYgyxEjmtZQ2EveyNodk";
 
@@ -56,8 +57,6 @@ export class YoutubeService {
     params.set ('videoCategoryId', id);
     params.set ('key', this.apiKey);
     return this.http.get( url , {search:params}).map( res =>{
-      console.log( res.json());
-
       let videos:any[] = [];
       for (let video of res.json().items){
         let videoSnippet = video.snippet
@@ -67,7 +66,7 @@ export class YoutubeService {
     })
   }
   searchVideo( term:string ){
-    
+
     let url = `${this.urlYoutube}search`;
     let params = new URLSearchParams();
     params.set ('part', 'snippet');
@@ -75,8 +74,40 @@ export class YoutubeService {
     params.set ('q', term);
     params.set ('key', this.apiKey);
     return this.http.get( url , {search:params}).map( res =>{
-      console.log( res.json());
+      let videos:any[] = [];
+      for (let video of res.json().items){
+        let videoSnippet = video.snippet
+        videos.push (videoSnippet);
+      }
+      return videos
+    })
+  }
+  searchVideoByTerm( term:string ){
 
+    let url = `${this.urlYoutube}search`;
+    let params = new URLSearchParams();
+    params.set ('part', 'snippet');
+    params.set ('type', 'video');
+    params.set ('q', term);
+    params.set ('key', this.apiKey);
+    this.videosArr = [];
+    return this.http.get( url , {search:params}).map( res =>{
+      for (let video of res.json().items){
+        let videoSnippet = video.snippet
+        this.videosArr.push (videoSnippet);
+      }
+      return this.videosArr
+    })
+  }
+  getTop(){
+
+    let url = `${this.urlYoutube}videos`;
+    let params = new URLSearchParams();
+    params.set ('part', 'snippet');
+    params.set ('chart', 'mostPopular');
+    params.set ('regionCode', 'us');
+    params.set ('key', this.apiKey);
+    return this.http.get( url , {search:params}).map( res =>{
       let videos:any[] = [];
       for (let video of res.json().items){
         let videoSnippet = video.snippet
@@ -86,4 +117,22 @@ export class YoutubeService {
     })
   }
 
+  getTags( categoryId:string ){
+
+    let url = `${this.urlYoutube}videos`;
+    let params = new URLSearchParams();
+    params.set ('part', 'snippet');
+    params.set ('chart', 'mostPopular');
+    params.set ('regionCode', 'us');
+    params.set('videoCategoryId' , categoryId);
+    params.set ('key', this.apiKey);
+    return this.http.get( url , {search:params}).map( res =>{
+      let videos:any[] = [];
+      for (let video of res.json().items){
+        let videoSnippet = video.snippet
+        videos.push (videoSnippet);
+      }
+      return videos
+    })
+  }
 }

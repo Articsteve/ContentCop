@@ -13,7 +13,7 @@ export class CategorynamePipe implements PipeTransform {
     {'id': 17, 'name':'Sports'},
     {'id': 18, 'name':'Short Movies'},
     {'id': 20, 'name':'Gaming'},
-    {'id': 21, 'name':'Videoblogging'},
+    {'id': 30, 'name':'Movies'},
     {'id': 31, 'name':'Anime/Animation'},
     {'id': 36, 'name':'Drama'},
     {'id': 44, 'name':'Trailers'},

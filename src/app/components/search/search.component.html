@@ -1,0 +1,35 @@
+<div class="container top25">
+  <div class="row">
+    <div class="col-md-3">
+      <label for="searchTerm">Search</label>
+      <input type="text" class="form-control" placeholder="Tag, category or specific video..."
+             [(ngModel)]="searchTerm" (keyup) = "searchVideo()">
+    </div>
+    <h1 class="text-capitalize"> {{searchTerm}} </h1>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Channel Title</th>
+              <th>Description</th>
+              <th>Video Title</th>
+              <th>Published At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of _ys.videosArr" class="col-md-3 text-center puntero">
+              <th><img [src]="a.thumbnails.medium.url" alt=""></th>
+              <td>{{ a.channelTitle }}</td>
+              <td>{{ a.description }}</td>
+              <td>{{ a.title }}</td>
+              <td>{{ a.publishedAt }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

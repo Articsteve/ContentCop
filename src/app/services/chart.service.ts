@@ -19,8 +19,19 @@ export class ChartService {
   getTags(id:number){
     return this.example;
   }
+  getTrendingTags(){
+    return this.example;
+  }
   randomNumberGenerator(){
   let num = Math.round(Math.random() * 10000)
   return num;
   }
+
+  /* For whenever I need to filter down an array, got yet to declare an object with the labels, data and count tho
+  let result = [];
+  for (let index = 0; index < SOURCE.length; index++) {
+    let el = SOURCE[index];
+    if (!result.includes(el)) result.push(el);
+  }*/
+
 }

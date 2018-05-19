@@ -1,0 +1,82 @@
+<div class="container secondary-container">
+  <form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate="">
+    <div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon3">Link:</span>
+        </div>
+        <input  type="text"
+                class="form-control"
+                name="link"
+                id="link"
+                [(ngModel)]="req.link"
+                aria-describedby="basic-addon3"
+                placeholder="https://www.youtube.com/watch/video_id"
+                required
+                #nombre="ngModel">
+      </div>
+      <br>
+      <div class="form-group row">
+        <div class="input-group mb-3">
+            <input  type="date"
+                    class="form-control"
+                    name="fInicio"
+                    id="fInicio"
+                    [(ngModel)]="req.fInicio"
+                    placeholder="Recipient's username"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                    required
+                    #apellido="ngModel">
+
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">Fecha de Inicial</span>
+          </div>
+        </div>
+        <div class="input-group-append">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="input-group mb-3">
+            <input  type="date"
+                    class="form-control"
+                    name="fFin"
+                    id="fFin"
+                    [(ngModel)]="req.fFin"
+                    placeholder="Recipient's username"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                    required
+                    #apellido="ngModel">
+
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">Fecha de Final</span>
+          </div>
+        </div>
+        <div class="input-group-append">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-12 col-form-label">&nbsp;</label>
+      <div class="input-group col-md-8">
+        <button [disabled]="!forma.valid"
+                type="submit"
+                class="btn btn-outline-primary"
+                id="btnSend">
+          Enviar
+        </button>
+      </div>
+    </div>
+
+
+    <div class="alert alert-info" role="alert">
+      <h1>Detalles de Modulo</h1>
+      <hr>
+      En ese modulo se va a solicitar el link del video de youtube y el intervalo de fechas en las que se desea analizar
+    </div>
+
+
+  </form>
+</div>
