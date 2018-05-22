@@ -59,6 +59,10 @@ export class HomeComponent implements OnInit {
 
   }
 
+  setCategory( id:string){
+    this._cs.globalCategory = id;
+  }
+
   addArray( videoInfo:any, idx:number){
     switch(idx){
         case 0: this.arr1 = videoInfo;
@@ -68,9 +72,12 @@ export class HomeComponent implements OnInit {
         case 4: this.arr5 = videoInfo;
     }
     // this.logValues();
+
   }
 
+
   ngOnInit() {
+  //  _cs.example.labels = [ this.labelArray[0], this.labelArray[1], this.labelArray[2], this.labelArray[3], this.labelArray[4] ]
   }
 }
 //.subscribe( videoInfo => {

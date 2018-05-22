@@ -357,6 +357,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_keyword_keyword_component__ = __webpack_require__("./src/app/components/keyword/keyword.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_search_search_component__ = __webpack_require__("./src/app/components/search/search.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__components_reqform_reqform_component__ = __webpack_require__("./src/app/components/reqform/reqform.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pipes_desc_pipe__ = __webpack_require__("./src/app/pipes/desc.pipe.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -387,6 +388,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -403,6 +405,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_17__components_keyword_keyword_component__["a" /* KeywordComponent */],
                 __WEBPACK_IMPORTED_MODULE_18__components_search_search_component__["a" /* SearchComponent */],
                 __WEBPACK_IMPORTED_MODULE_19__components_reqform_reqform_component__["a" /* ReqformComponent */],
+                __WEBPACK_IMPORTED_MODULE_20__pipes_desc_pipe__["a" /* DescPipe */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -496,8 +499,7 @@ var PieChartComponent = /** @class */ (function () {
         this._ys = _ys;
         this.label = "";
         this.labels = this._cs.getTags(Number(this.category)).labels;
-        //labels:string[] = [this.labelArray[0],this.labelArray[1],this.labelArray[2],this.labelArray[3],this.labelArray[4],this.labelArray[5]]
-        this.doughnutChartLabels = this._cs.getTags(Number(this.category)).labels; // = this.doughnutChartLabels;
+        this.doughnutChartLabels = this._cs.getTags(Number(this._cs.globalCategory)).labels; // = this.doughnutChartLabels;
         this.doughnutChartData = this._cs.getTags(Number(this.category)).data; //= this.doughnutChartData;
         this.doughnutChartType = 'doughnut';
         this.labelArray = [];
@@ -508,16 +510,19 @@ var PieChartComponent = /** @class */ (function () {
             _this._ys.getTags(id).subscribe(function (categoryTags) {
                 //console.log( "TagsbyId" , categoryTags)
                 var idx = 0;
+                console.log(categoryTags, "Tags");
                 for (var _i = 0, categoryTags_1 = categoryTags; _i < categoryTags_1.length; _i++) {
                     var tags = categoryTags_1[_i];
-                    for (var _a = 0, _b = tags.tags; _a < _b.length; _a++) {
-                        var t = _b[_a];
-                        _this.labelArray[idx] = t;
-                        idx++;
-                        //console.log("Idx", idx, "Tag", t)
+                    if (tags.tags) {
+                        for (var _a = 0, _b = tags.tags; _a < _b.length; _a++) {
+                            var t = _b[_a];
+                            _this.labelArray[idx] = t;
+                            idx++;
+                            //console.log("Idx", idx, "Tag", t)
+                        }
                     }
                 }
-                console.log(_this.labelArray, "Array");
+                /*console.log( _cs.example, "Example" )*/
             });
         });
     }
@@ -551,7 +556,7 @@ var PieChartComponent = /** @class */ (function () {
 /***/ "./src/app/components/description/description.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-md-12\">\n    <app-pie-chart  [category]=\"categories\"></app-pie-chart>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>#</th>\n          <th>Channel Id</th>\n          <th>Channel Title</th>\n          <th>Description</th>\n          <th>Video Title</th>\n          <th>Published At</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let c of categories\">\n          <th><img [src]=\"c.thumbnails.medium.url\" alt=\"\"></th>\n          <th>{{ c.channelId }}</th>\n          <td>{{ c.channelTitle }}</td>\n          <td>{{ c.description }}</td>\n          <td>{{ c.title }}</td>\n          <td>{{ c.publishedAt }}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-md-12\">\n    <app-pie-chart  [category]=\"categories\" categoryId=\"categoryId\"></app-pie-chart>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>#</th>\n          <th>Channel Id</th>\n          <th>Channel Title</th>\n          <th>Description</th>\n          <th>Video Title</th>\n          <th>Published At</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let c of categories\">\n          <th><img [src]=\"c.thumbnails.medium.url\" alt=\"\"></th>\n          <th>{{ c.channelId }}</th>\n          <td>{{ c.channelTitle }}</td>\n          <td>{{ c.description | slice:0:150}}</td>\n          <td>{{ c.title }}</td>\n          <td>{{ c.publishedAt }}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -610,7 +615,7 @@ var DescriptionComponent = /** @class */ (function () {
 /***/ "./src/app/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container main-container\">\n  <h1>Categories</h1>\n  <div class=\"row\">\n    <div *ngFor=\"let c of categorieList\" class=\"col-md-3\">\n      <br>\n      <button type=\"button\" class=\"btn btn-block btn-info\" [routerLink]= \"['/description',c.id]\">{{c.name}}</button>\n    </div>\n  </div>\n  <br>\n  <br>\n  <br>\n  <div>\n    <h1 style=\"text-align:center\">Trending Today</h1>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>#</th>\n          <th>Channel Title</th>\n          <th>Description</th>\n          <th>Video Title</th>\n          <th>Published At</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let c of arrTop\">\n          <th><img [src]=\"c.thumbnails.medium.url\" alt=\"\"></th>\n          <td>{{ c.channelTitle }}</td>\n          <td>{{ c.description }}</td>\n          <td>{{ c.title }}</td>\n          <td>{{ c.publishedAt }}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n"
+module.exports = "<div class=\"container main-container\">\n  <h1>Categories</h1>\n  <div class=\"row\">\n    <div *ngFor=\"let c of categorieList\" class=\"col-md-3\">\n      <br>\n      <button type=\"button\" class=\"btn btn-block btn-info\" (click)=\"setCategory(c.id)\" [routerLink]= \"['/description',c.id]\">{{c.name}}</button>\n    </div>\n  </div>\n  <br>\n  <br>\n  <br>\n  <div>\n    <h1 style=\"text-align:center\">Trending Today</h1>\n    <table class=\"table\">\n      <thead>\n        <tr>\n          <th>#</th>\n          <th>Channel Title</th>\n          <th>Description</th>\n          <th>Video Title</th>\n          <th>Published At</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr *ngFor=\"let c of arrTop\">\n          <th><img [src]=\"c.thumbnails.medium.url\" alt=\"\"></th>\n          <td>{{ c.channelTitle }}</td>\n          <td>{{ c.description | slice:0:150 }}</td>\n          <td>{{ c.title }}</td>\n          <td>{{ c.publishedAt }}</td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -680,6 +685,9 @@ var HomeComponent = /** @class */ (function () {
             console.log("idk", videoInfo); // has tags
         });
     }
+    HomeComponent.prototype.setCategory = function (id) {
+        this._cs.globalCategory = id;
+    };
     HomeComponent.prototype.addArray = function (videoInfo, idx) {
         switch (idx) {
             case 0: this.arr1 = videoInfo;
@@ -691,6 +699,7 @@ var HomeComponent = /** @class */ (function () {
         // this.logValues();
     };
     HomeComponent.prototype.ngOnInit = function () {
+        //  _cs.example.labels = [ this.labelArray[0], this.labelArray[1], this.labelArray[2], this.labelArray[3], this.labelArray[4] ]
     };
     HomeComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -968,6 +977,39 @@ var CategorynamePipe = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/pipes/desc.pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DescPipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var DescPipe = /** @class */ (function () {
+    function DescPipe() {
+    }
+    DescPipe.prototype.transform = function (value, text) {
+        console.log("Desc Des");
+        value = "5";
+        return value;
+    };
+    DescPipe = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"])({
+            name: 'desc'
+        })
+    ], DescPipe);
+    return DescPipe;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/pipes/safe-dom.pipe.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1014,6 +1056,7 @@ var SafeDomPipe = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChartService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_youtube_service__ = __webpack_require__("./src/app/services/youtube.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1024,10 +1067,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var ChartService = /** @class */ (function () {
-    function ChartService() {
+    function ChartService(_ys) {
+        var _this = this;
+        this._ys = _ys;
+        this.globalCategory = "";
         this.example = {
-            labels: ["Minecraft", "Overwatch", "Monster Hunter", "Fortnite", "God of War", "Sick Ass Turtles"],
+            labels: ["Minecraft", "Overwatch", "Monster Hunter", "Fortnite", "League of Legends", "Borderlands"],
             data: [
                 this.randomNumberGenerator(),
                 this.randomNumberGenerator(),
@@ -1036,9 +1083,160 @@ var ChartService = /** @class */ (function () {
                 this.randomNumberGenerator()
             ]
         };
+        this.film = {
+            labels: [],
+            data: [
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator()
+            ]
+        };
+        this.cars = {
+            labels: [],
+            data: [
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator()
+            ]
+        };
+        this.music = {
+            labels: [],
+            data: [
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator()
+            ]
+        };
+        this.gaming = {
+            labels: [],
+            data: [
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator()
+            ]
+        };
+        this.pets = {
+            labels: [],
+            data: [
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator(),
+                this.randomNumberGenerator()
+            ]
+        };
+        var labelArray = [];
+        this._ys.getTags("1").subscribe(function (categoryTags) {
+            //console.log( "TagsbyId" , categoryTags)
+            var idx = 0;
+            for (var _i = 0, categoryTags_1 = categoryTags; _i < categoryTags_1.length; _i++) {
+                var tags = categoryTags_1[_i];
+                if (tags.tags) {
+                    for (var _a = 0, _b = tags.tags; _a < _b.length; _a++) {
+                        var t = _b[_a];
+                        labelArray[idx] = t;
+                        idx++;
+                    }
+                }
+            }
+            _this.film.labels = [labelArray[0], labelArray[1], labelArray[2], labelArray[3], labelArray[4]];
+            labelArray = [];
+        });
+        this._ys.getTags("2").subscribe(function (categoryTags) {
+            //console.log( "TagsbyId" , categoryTags)
+            var idx = 0;
+            for (var _i = 0, categoryTags_2 = categoryTags; _i < categoryTags_2.length; _i++) {
+                var tags = categoryTags_2[_i];
+                if (tags.tags) {
+                    for (var _a = 0, _b = tags.tags; _a < _b.length; _a++) {
+                        var t = _b[_a];
+                        labelArray[idx] = t;
+                        idx++;
+                    }
+                }
+            }
+            _this.cars.labels = [labelArray[0], labelArray[1], labelArray[2], labelArray[3], labelArray[4]];
+            labelArray = [];
+        });
+        this._ys.getTags("10").subscribe(function (categoryTags) {
+            //console.log( "TagsbyId" , categoryTags)
+            var idx = 0;
+            for (var _i = 0, categoryTags_3 = categoryTags; _i < categoryTags_3.length; _i++) {
+                var tags = categoryTags_3[_i];
+                if (tags.tags) {
+                    for (var _a = 0, _b = tags.tags; _a < _b.length; _a++) {
+                        var t = _b[_a];
+                        labelArray[idx] = t;
+                        idx++;
+                    }
+                }
+            }
+            _this.music.labels = [labelArray[0], labelArray[1], labelArray[2], labelArray[3], labelArray[4]];
+            labelArray = [];
+        });
+        this._ys.getTags("15").subscribe(function (categoryTags) {
+            //console.log( "TagsbyId" , categoryTags)
+            var idx = 0;
+            for (var _i = 0, categoryTags_4 = categoryTags; _i < categoryTags_4.length; _i++) {
+                var tags = categoryTags_4[_i];
+                if (tags.tags) {
+                    for (var _a = 0, _b = tags.tags; _a < _b.length; _a++) {
+                        var t = _b[_a];
+                        labelArray[idx] = t;
+                        idx++;
+                    }
+                }
+            }
+            _this.pets.labels = [labelArray[0], labelArray[1], labelArray[2], labelArray[3], labelArray[4]];
+            labelArray = [];
+        });
+        this._ys.getTags("20").subscribe(function (categoryTags) {
+            //console.log( "TagsbyId" , categoryTags)
+            var idx = 0;
+            for (var _i = 0, categoryTags_5 = categoryTags; _i < categoryTags_5.length; _i++) {
+                var tags = categoryTags_5[_i];
+                if (tags.tags) {
+                    for (var _a = 0, _b = tags.tags; _a < _b.length; _a++) {
+                        var t = _b[_a];
+                        labelArray[idx] = t;
+                        idx++;
+                    }
+                }
+            }
+            _this.gaming.labels = [labelArray[0], labelArray[1], labelArray[2], labelArray[3], labelArray[4]];
+            labelArray = [];
+        });
     }
     ChartService.prototype.getTags = function (id) {
-        return this.example;
+        switch (id) {
+            case 1: {
+                return this.film;
+            }
+            case 2: {
+                return this.cars;
+            }
+            case 10: {
+                return this.music;
+            }
+            case 20: {
+                //return this.gaming
+                return this.example;
+            }
+            case 15: {
+                return this.pets;
+            }
+            default: {
+                return this.example;
+            }
+        }
     };
     ChartService.prototype.getTrendingTags = function () {
         return this.example;
@@ -1049,7 +1247,7 @@ var ChartService = /** @class */ (function () {
     };
     ChartService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_youtube_service__["a" /* YoutubeService */]])
     ], ChartService);
     return ChartService;
 }());
@@ -1248,8 +1446,8 @@ var YoutubeService = /** @class */ (function () {
         var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* URLSearchParams */]();
         params.set('part', 'snippet');
         params.set('chart', 'mostPopular');
-        params.set('regionCode', 'us');
         params.set('videoCategoryId', categoryId);
+        params.set('regionCode', 'us');
         params.set('key', this.apiKey);
         return this.http.get(url, { search: params }).map(function (res) {
             var videos = [];

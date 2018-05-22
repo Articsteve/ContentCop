@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12">
-    <app-pie-chart  [category]="categories"></app-pie-chart>
+    <app-pie-chart  [category]="categories" categoryId="categoryId"></app-pie-chart>
     <table class="table">
       <thead>
         <tr>
@@ -17,7 +17,7 @@
           <th><img [src]="c.thumbnails.medium.url" alt=""></th>
           <th>{{ c.channelId }}</th>
           <td>{{ c.channelTitle }}</td>
-          <td>{{ c.description }}</td>
+          <td>{{ c.description | slice:0:150}}</td>
           <td>{{ c.title }}</td>
           <td>{{ c.publishedAt }}</td>
         </tr>

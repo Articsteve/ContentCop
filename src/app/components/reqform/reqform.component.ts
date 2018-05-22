@@ -24,7 +24,7 @@ export class ReqformComponent implements OnInit {
 
   console.log("Request", this.req );
 
-}
+  }
 
 
 }

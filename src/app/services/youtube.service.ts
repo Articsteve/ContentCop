@@ -118,13 +118,12 @@ export class YoutubeService {
   }
 
   getTags( categoryId:string ){
-
     let url = `${this.urlYoutube}videos`;
     let params = new URLSearchParams();
     params.set ('part', 'snippet');
     params.set ('chart', 'mostPopular');
-    params.set ('regionCode', 'us');
     params.set('videoCategoryId' , categoryId);
+    params.set ('regionCode', 'us');
     params.set ('key', this.apiKey);
     return this.http.get( url , {search:params}).map( res =>{
       let videos:any[] = [];

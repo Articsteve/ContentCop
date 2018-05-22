@@ -28,6 +28,7 @@ import { CategorynamePipe } from './pipes/categoryname.pipe';
 import { KeywordComponent } from './components/keyword/keyword.component';
 import { SearchComponent } from './components/search/search.component';
 import { ReqformComponent } from './components/reqform/reqform.component';
+import { DescPipe } from './pipes/desc.pipe';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ReqformComponent } from './components/reqform/reqform.component';
     KeywordComponent,
     SearchComponent,
     ReqformComponent,
+    DescPipe,
   ],
   imports: [
     BrowserModule,
