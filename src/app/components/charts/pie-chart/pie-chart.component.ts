@@ -14,9 +14,9 @@ export class PieChartComponent {
   @Input('category') category;
 
   label:string = "";
-  labels:string[] = this._cs.getTags( Number(this.category) ).labels;
+  labels:string[] = this._cs.getTags( Number(this._cs.globalCategory) ).labels;
   doughnutChartLabels:string[] = this._cs.getTags( Number(this._cs.globalCategory) ).labels// = this.doughnutChartLabels;
-  doughnutChartData:number[] = this._cs.getTags( Number(this.category) ).data //= this.doughnutChartData;
+  doughnutChartData:number[] = this._cs.getTags( Number(this._cs.globalCategory) ).data //= this.doughnutChartData;
   doughnutChartType:string = 'doughnut';
 
   labelArray:any[] = [];
